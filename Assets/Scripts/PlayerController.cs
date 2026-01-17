@@ -4,12 +4,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MovementController
 {
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     protected override void Update()
     {
@@ -34,6 +28,20 @@ public class PlayerController : MovementController
         { mustJump = true; }
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
-        { mustPunch = true; }
+        {
+            PerformPunch();
+        }
+    }
+
+    public override void NotifyHit(HitBox2D hitBox2D)
+    {
+        Debug.Log("Este es el notifyyhit de la clase derivada");
+        gameObject.SetActive(false);
+        Invoke(nameof(ActivatePlayer), 3f);
+    }
+
+    void ActivatePlayer()
+    {
+        gameObject.SetActive(true);
     }
 }

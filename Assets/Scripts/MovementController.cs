@@ -3,15 +3,20 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
 
+    [Header("Movement Settings")]
     [SerializeField] float walkSpeed = 3f;
     [SerializeField] float jumpSpeed = 10f;
+
+    [Header("Combat Settings")]
+    [SerializeField] Transform punchHit;
+    [SerializeField] float punchHitDuration = 0.25f;
 
     Rigidbody2D rb2D;
     Animator animator;
     SpriteRenderer spriteRenderer;
 
     // Awake is called when the script instance is being loaded
-    private void Awake()
+    protected virtual void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -44,11 +49,13 @@ public class MovementController : MonoBehaviour
         // Flip sprite based on movement direction
         if (desiredMove.x > 0)
         {
-            spriteRenderer.flipX = false;
+            // spriteRenderer.flipX = false;
+            transform.localScale = Vector3.one;
         }
         else if (desiredMove.x < 0)
         {
-            spriteRenderer.flipX = true;
+            // spriteRenderer.flipX = true;
+            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
         if (mustPunch)
@@ -62,5 +69,22 @@ public class MovementController : MonoBehaviour
             rb2D.linearVelocityY = jumpSpeed;
             mustJump = false;
         }
+    }
+
+    protected void PerformPunch()
+    {
+        mustPunch = true;
+        punchHit.gameObject.SetActive(true);
+        Invoke(nameof(DeactivatePunchHit), punchHitDuration);
+    }
+
+    void DeactivatePunchHit()
+    {
+        punchHit.gameObject.SetActive(false);
+    }
+
+    public virtual void NotifyHit(HitBox2D hitBox2D)
+    {
+        Destroy(gameObject);
     }
 }
