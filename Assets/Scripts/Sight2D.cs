@@ -7,8 +7,8 @@ public class Sight2D : MonoBehaviour
     [SerializeField] float radius = 5f;
     [SerializeField] float checkFrequency = 5f;
 
-    float lastCheckTime;
-    Collider2D[] collider;
+    float lastCheckTime = 0.0f;
+    Collider2D[] colliders = new Collider2D[0];
     // Update is called once per frame
     void Update()
     {
@@ -21,13 +21,13 @@ public class Sight2D : MonoBehaviour
 
             // bool[] arrayConTresBooleanos = { true, false, false };
 
-            Debug.Log("Checking sight");
-            collider = Physics2D.OverlapCircleAll(transform.position, radius);
+            // Debug.Log("Checking sight");
+            colliders = Physics2D.OverlapCircleAll(transform.position, radius);
 
-            for (int i = 0; i < collider.Length; i++)
-            {
-                Debug.Log($"El collider {i} se llama {collider[i].name}.", collider[i]);
-            }
+            // for (int i = 0; i < colliders.Length; i++)
+            // {
+            //     Debug.Log($"El colliders {i} se llama {colliders[i].name}.", colliders[i]);
+            // }
         }
     }
 
@@ -35,9 +35,9 @@ public class Sight2D : MonoBehaviour
     {
         bool isPlayerInSight = false;
 
-        for (int i = 0; !isPlayerInSight && (i < collider.Length); i++)
+        for (int i = 0; !isPlayerInSight && (i < colliders.Length); i++)
         {
-            if (collider[i].CompareTag("Player"))
+            if (colliders[i].CompareTag("Player"))
             {
                 isPlayerInSight = true;
             }

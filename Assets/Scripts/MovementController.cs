@@ -11,8 +11,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] Transform punchHit;
     [SerializeField] float punchHitDuration = 0.25f;
 
-    Rigidbody2D rb2D;
-    Animator animator;
+    protected Rigidbody2D rb2D;
+    protected Animator animator;
     SpriteRenderer spriteRenderer;
 
     // Awake is called when the script instance is being loaded

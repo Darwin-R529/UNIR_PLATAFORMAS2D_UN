@@ -19,5 +19,9 @@ public class EnemyWithSight : EnemyController
         {
             base.RunToPlayer();
         }
+        else
+        {
+            desiredMove = Vector2.zero;
+        }
     }
 }
