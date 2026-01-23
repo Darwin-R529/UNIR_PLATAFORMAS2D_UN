@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MovementController
 {
@@ -162,6 +164,6 @@ public class PlayerController : MovementController
 
     void Morir()
     {
-        Debug.Log("Jugador murió en lava");
+        SceneManager.LoadScene(0);
     }
 }

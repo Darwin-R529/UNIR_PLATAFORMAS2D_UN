@@ -7,7 +7,13 @@ public class OtherLevelController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            int escenaActual = SceneManager.GetActiveScene().buildIndex;
+            int totalEscenas = SceneManager.sceneCountInBuildSettings;
+
+            int siguienteEscena = (escenaActual + 1) % totalEscenas;
+
+            SceneManager.LoadScene(siguienteEscena);
         }
     }
+
 }
